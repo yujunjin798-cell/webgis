@@ -1,0 +1,18 @@
+﻿# Cloudflare Wrangler 配置
+# 部署命令: npx wrangler deploy
+
+name = "geoverse-api"
+main = "worker/index.ts"
+compatibility_date = "2025-06-01"
+
+# KV 命名空间用于存储 GeoJSON 数据（免费额度: 1GB）
+# 创建命令: npx wrangler kv:namespace create "GEOJSON_STORE"
+# kv_namespaces = [
+#   { binding = "GEOJSON_STORE", id = "your-kv-id" }
+# ]
+
+[observability]
+enabled = true
+
+[[routes]]
+pattern = "api.geoverse.dev/*"

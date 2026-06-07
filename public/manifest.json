@@ -1,0 +1,16 @@
+﻿{
+  "name": "GeoVerse - 现代 WebGIS 平台",
+  "short_name": "GeoVerse",
+  "description": "集成2D/3D地图、大数据可视化、空间分析、GeoAI等前沿地理信息技术的WebGIS平台",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "32x32",
+      "type": "image/svg+xml"
+    }
+  ]
+}

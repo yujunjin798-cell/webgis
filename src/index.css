@@ -1,0 +1,92 @@
+﻿@import "tailwindcss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #020617;
+  color: #e2e8f0;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* MapLibre 控件样式覆盖 */
+.maplibregl-ctrl-group {
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+.maplibregl-ctrl-group button {
+  width: 36px !important;
+  height: 36px !important;
+  background: rgba(15, 23, 42, 0.9) !important;
+  border-color: rgba(51, 65, 85, 0.5) !important;
+}
+.maplibregl-ctrl-group button:hover {
+  background: rgba(30, 41, 59, 0.9) !important;
+}
+.maplibregl-ctrl-group button span {
+  filter: invert(0.7);
+}
+
+/* 面板滑入动画 */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.animate-slide-in {
+  animation: slideIn 0.2s ease-out;
+}
+
+/* 脉冲动画 */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0); }
+  50% { box-shadow: 0 0 8px 2px rgba(34, 211, 238, 0.3); }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* range input 样式 */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #60a5fa;
+  cursor: pointer;
+  border: 2px solid #1e293b;
+}
