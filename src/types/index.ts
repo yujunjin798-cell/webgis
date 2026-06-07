@@ -10,7 +10,6 @@ export interface MapConfig {
 
 export type MapStyle = 'light' | 'dark' | 'satellite' | 'terrain' | 'night';
 
-// === 图层类型 ===
 export interface LayerItem {
   id: string;
   name: string;
@@ -84,4 +83,18 @@ export interface MeasureResult {
   value: number;
   unit: string;
   geometry: GeoJSON.Geometry;
+}
+
+export interface UploadedFile {
+  name: string;
+  format: 'geojson' | 'kml' | 'csv' | 'shp';
+  size: number;
+  featureCount: number;
+  data: GeoJSON.FeatureCollection;
+}
+
+export interface ColorScheme {
+  name: string;
+  colors: string[];
+  type: 'sequential' | 'diverging' | 'qualitative';
 }

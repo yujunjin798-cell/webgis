@@ -17,20 +17,16 @@ export function DataPanel() {
     let data: GeoJSON.FeatureCollection;
     try {
       const parsed = JSON.parse(text);
-      data = parsed.type === 'FeatureCollection' ? parsed
-        : parsed.type === 'Feature' ? { type: 'FeatureCollection', features: [parsed] }
-        : { type: 'FeatureCollection', features: [] };
-    } catch {
-      return alert('无法解析文件，请上传 GeoJSON 格式');
-    }
+      data = parsed.type === 'FeatureCollection' ? parsed : parsed.type === 'Feature' ? { type: 'FeatureCollection' as const, features: [parsed] } : { type: 'FeatureCollection' as const, features: [] };
+    } catch { return alert('无法解析文件，请上传 GeoJSON 格式'); }
     setUploadedFiles((prev) => [...prev, { name: file.name, format: 'geojson', size: file.size, featureCount: data.features.length, data }]);
     addLayer({ id: `upload-${Date.now()}`, name: file.name, type: data.features[0]?.geometry.type === 'Point' ? 'point' : 'polygon', visible: true, opacity: 0.8, source: { kind: 'geojson', data } });
   };
 
   const quickData = [
-    { label: '随机点位 (5000)', action: () => { const d = generateMockPoints(config.center, 5000); addLayer({ id: `qp-${Date.now()}`, name: '随机点位', type: 'point', visible: true, opacity: 0.8, source: { kind: 'geojson', data: d } }); }},
-    { label: '随机面 (50)', action: () => { const d = generateMockPolygons(config.center, 50); addLayer({ id: `qpo-${Date.now()}`, name: '随机区域', type: 'polygon', visible: true, opacity: 0.7, source: { kind: 'geojson', data: d } }); }},
-    { label: '热力数据 (3000)', action: () => { const d = generateMockHeatmap(config.center, 3000); addLayer({ id: `qh-${Date.now()}`, name: '热力数据', type: 'heatmap', visible: true, opacity: 0.8, source: { kind: 'geojson', data: d } }); }},
+    { label: '随机点位 (5000)', action: () => { const d = generateMockPoints(config.center, 5000); addLayer({ id: `qp-${Date.now()}`, name: '随机点位', type: 'point', visible: true, opacity: 0.8, source: { kind: 'geojson', data: d } }); } },
+    { label: '随机面 (50)', action: () => { const d = generateMockPolygons(config.center, 50); addLayer({ id: `qpo-${Date.now()}`, name: '随机区域', type: 'polygon', visible: true, opacity: 0.7, source: { kind: 'geojson', data: d } }); } },
+    { label: '热力数据 (3000)', action: () => { const d = generateMockHeatmap(config.center, 3000); addLayer({ id: `qh-${Date.now()}`, name: '热力数据', type: 'heatmap', visible: true, opacity: 0.8, source: { kind: 'geojson', data: d } }); } },
   ];
 
   return (
@@ -43,19 +39,13 @@ export function DataPanel() {
         <p className="text-xs text-slate-600 mt-1">支持 .json, .geojson</p>
         <input ref={fileInputRef} type="file" accept=".json,.geojson" onChange={handleFileUpload} className="hidden" />
       </div>
-      <div className="mb-4">
-        <div className="text-xs text-slate-400 mb-2 font-medium">快速测试数据</div>
+      <div className="mb-4"><div className="text-xs text-slate-400 mb-2 font-medium">快速测试数据</div>
         <div className="space-y-1.5">
-          {quickData.map((q) => (
-            <button key={q.label} onClick={q.action} className="w-full p-2 bg-slate-800/30 hover:bg-slate-800/50 border border-slate-700/30 rounded text-xs text-slate-300 text-left transition-colors">
-              📦 {q.label}
-            </button>
-          ))}
+          {quickData.map((q) => (<button key={q.label} onClick={q.action} className="w-full p-2 bg-slate-800/30 hover:bg-slate-800/50 border border-slate-700/30 rounded text-xs text-slate-300 text-left transition-colors">📦 {q.label}</button>))}
         </div>
       </div>
       {uploadedFiles.length > 0 && (
-        <div>
-          <div className="text-xs text-slate-400 mb-2 font-medium">已上传</div>
+        <div><div className="text-xs text-slate-400 mb-2 font-medium">已上传</div>
           <div className="space-y-1.5">
             {uploadedFiles.map((f, i) => (
               <div key={i} className="flex items-center justify-between p-2 bg-slate-800/30 rounded border border-slate-700/30 text-xs">
